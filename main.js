@@ -63,12 +63,14 @@ generateShop();
 
 
 const increment = (id) => {
+    // console.log(id);
     let selectedItem = id;
-    let search = basket.find((item) => item.id === selectedItem.id);
+    // console.log(selectedItem);
+    let search = basket.find((x) => x.id === selectedItem);
 
     if(search === undefined) {
         basket.push({
-            id: selectedItem.id,
+            id: selectedItem,
             item: 1,
         });
     }
@@ -81,11 +83,13 @@ const increment = (id) => {
 
 
 const decrement = (id) => {
+    // console.log(id);
     let selectedItem = id;
-    let search = basket.find((item) => item.id === selectedItem.id);
+    // console.log(selectedItem);
+    let search = basket.find((x) => x.id === selectedItem);
 
     if(search.item === 0) return;
-        
+  
     else {
         search.item -= 1; 
     }
@@ -95,10 +99,10 @@ const decrement = (id) => {
 
 
 const update = (id) => {
-    // console.log("update " + id)
+    // console.log(id);
     let selectedItem = id;
     console.log(selectedItem);
 };
 
 
-// video 1:20:00
+// video 1:22:00
