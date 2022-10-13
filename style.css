@@ -84,6 +84,7 @@ body {
 .buttons .bi {
     padding: 0.1rem;
     border-radius: 0.4rem;
+    cursor: pointer;
 }
 
 .buttons .bi-dash-lg {
