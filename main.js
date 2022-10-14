@@ -34,11 +34,12 @@ let shopItemsData = [
 
 // console.log(shopItemsData);
 
-let basket = [];
+let basket = JSON.parse(localStorage.getItem("data")) || [];
 
 const generateShop = () => {
     return (shop.innerHTML = shopItemsData.map((item) => {
         let { id, name, price, desc, img } = item;
+        let search = basket.find((x) => x.id === id) || [];
         return `
       <div id=product-id-${id} class="item">
           <img width="100%" src=${img} alt="">
@@ -49,7 +50,7 @@ const generateShop = () => {
               <h2>$ ${price} </h2>
               <div class="buttons">
                 <i onclick="decrement(${id})" class="bi bi-dash-lg"></i>
-                <div id=${id} class="quantity"> 0 </div>
+                <div id=${id} class="quantity">${search.item === undefined ? 0: search.item}</div>
                 <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
               </div>
             </div>
@@ -77,8 +78,9 @@ const increment = (id) => {
     else {
         search.item += 1; 
     }
-
-    console.log(basket);
+    localStorage.setItem("data", JSON.stringify(basket));
+    // console.log(basket);
+    update(selectedItem);
 };
 
 
@@ -94,15 +96,27 @@ const decrement = (id) => {
         search.item -= 1; 
     }
 
-    console.log(basket);
+    // console.log(basket);
+    update(selectedItem);
 };
 
 
 const update = (id) => {
-    // console.log(id);
-    let selectedItem = id;
-    console.log(selectedItem);
+    // console.log('The update function is running');
+    let search = basket.find((x) => x.id === id);
+    // console.log(search.item);
+    document.getElementById(id).innerHTML = search.item;
+    calculation();
 };
 
+const calculation = () => {
+    // console.log("Calculation function is running");
+    let cartIcon = document.getElementById('cartAmount');
+    cartIcon.innerHTML = basket.map((x) => x.item).reduce((x, y) =>x+y, 0);
+    console.log();
+};
 
-// video 1:22:00
+calculation();
+
+
+// video 1:49:00
