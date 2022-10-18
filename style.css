@@ -24,9 +24,14 @@ a {
 /************************ Navbar *************************/
 
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: #333;
+    align-items: center;
+    background-color: rgba(0,0,0,0.8);
     color: #efefef;
     padding: 1rem 3rem;
 }
@@ -56,7 +61,7 @@ a {
 
 .shop {
     max-width: 1100px;
-    margin: 2rem auto;
+    margin: 7rem auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
@@ -119,7 +124,7 @@ a {
 }
 
 .text-center {
-    margin-top: 1rem;
+    margin-top: 6rem;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -179,3 +184,20 @@ a {
     margin-left: 0.2rem;
 }
 
+.checkout, .removeAll {
+    margin-top: 1rem;
+    background-color: #333;
+    color: #efefef;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.checkout {
+    background-color: green;
+}
+
+.removeAll {
+    background-color: red;
+}

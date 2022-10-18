@@ -10,23 +10,23 @@ const calculation = () => {
 };
 calculation();
 
-
 const generateCartItem = () => {
     if(basket.length !== 0) {
       return shoppingCart.innerHTML = basket.map((x) => {
         let {id, item} = x
         let search = shopItemsData.find((y) => y.id === id) || [];
+        let {img, name, price} = search;
         return `
             <div class="cart-item">
-                <img width="100" src=${search.img} alt="" />
+                <img width="100" src=${img} alt="" />
                 <div class="details">
 
                     <div class="title-price-x">
                         <h4 class="title-price">
-                            <p>${search.name}</p>
-                            <p class="cart-item-price">$${search.price}</p>
+                            <p>${name}</p>
+                            <p class="cart-item-price">$${price}</p>
                         </h4>
-                        <i class="bi bi-x-lg"></i>
+                        <i onclick="removeItem(${id})" class="bi bi-x-lg"></i>
                     </div>
 
                     <div class="buttons">
@@ -90,8 +90,38 @@ const update = (id) => {
     let search = basket.find((x) => x.id === id);
     document.getElementById(id).innerHTML = search.item;
     calculation();
+    totalAmount();
 };
 
+const removeItem = (id) => {
+    let selectedItem = id;
+    basket = basket.filter((x) => x.id !== selectedItem);
+    generateCartItem();
+    totalAmount();
+    calculation();
+    localStorage.setItem("data", JSON.stringify(basket));
+};
 
+const totalAmount = () => {
+    if(basket.length !== 0) {
+        let amount = basket.map((x) => {
+            let {item, id} = x;
+            let search = shopItemsData.find((y) => y.id === id) || [];
+            return item * search.price;
+      }).reduce((x, y) => x + y, 0);
+      label.innerHTML = `
+                <h2>Total Bill : $ ${amount}</h2>
+                <button class="checkout">Checkout</button>
+                <button onclick="clearCart()" class="removeAll">Clear Cart</button>
+        `;
+    }
+    else return;
+};
+totalAmount();
 
-// video 2:50:30
+const clearCart = () => {
+    basket = [];
+    generateCartItem();
+    calculation();
+    localStorage.setItem("data", JSON.stringify(basket));
+};
